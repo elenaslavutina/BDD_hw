@@ -1,2 +1,2 @@
 # BDD_HW
-[![Build status](https://ci.appveyor.com/api/projects/status/hy03c6mfiskq8p5t/branch/master?svg=true)](https://ci.appveyor.com/project/elenaslavutina/patterns-task2/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/6fcq6htq6ecc2xfs/branch/master?svg=true)](https://ci.appveyor.com/project/elenaslavutina/bdd-hw/branch/master)

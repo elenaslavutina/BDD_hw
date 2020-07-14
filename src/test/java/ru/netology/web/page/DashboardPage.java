@@ -21,21 +21,26 @@ public class DashboardPage {
         return new TransferPage();
     }
 
-   public TransferPage completeTransferToCard2() {
+    public TransferPage completeTransferToCard2() {
         replenishCard2Button.click();
         return new TransferPage();
     }
 
     public int getCurrentBalanceFirstCard() {
         String balance = $(".list__item [data-test-id=\"92df3f1c-a033-48e6-8390-206f6b1f56c0\"]").getText();
-        String [] subStr = balance.split(":");
-        int value = Integer.parseInt(subStr[1].replaceAll("[^0-9]", ""));
+        //   String[] subStr = balance.split(":");
+        //   int value = Integer.parseInt(subStr[1].replaceAll("[^0-9]", ""));
+        //  return value;
+
+        String balancePart = balance.split(":")[1];
+        int value = Integer.parseInt(balancePart.substring(0, balancePart.indexOf("р")).strip());
         return value;
     }
+
     public int getCurrentBalanceSecondCard() {
         String balance = $(".list__item [data-test-id=\"0f3f5c2a-249e-4c3d-8287-09f7a039391d\"]").getText();
-        String [] subStr = balance.split(":");
-        int value = Integer.parseInt(subStr[1].replaceAll("[^0-9]", ""));
+        String balancePart = balance.split(":")[1];
+        int value = Integer.parseInt(balancePart.substring(0, balancePart.indexOf("р")).strip());
         return value;
     }
 

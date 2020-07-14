@@ -23,15 +23,16 @@ public class TransactionTests {
         verificationPage.validVerify(verificationCode);
         val dashboardPage = new DashboardPage();
 
-//        val currentBalance2 = dashboardPage.getCurrentBalanceSecondCard();
+        val currentBalance2 = dashboardPage.getCurrentBalanceSecondCard();
+        val currentBalance1 = dashboardPage.getCurrentBalanceFirstCard();
 
-//        val currentBalance1 = dashboardPage.getNewBalanceFirstCard(amount);
         val expectedBalance = dashboardPage.getNewBalanceSecondCard(amount);
         dashboardPage.completeTransferToCard2();
         val transferPage = new TransferPage();
         val transferInfo = DataHelper.getTransferInfoFirstCard(String.valueOf(amount));
         transferPage.transferMoney(transferInfo);
         val newBalance = dashboardPage.getCurrentBalanceSecondCard();
+
         assertEquals(expectedBalance,newBalance);
     }
 
@@ -45,6 +46,10 @@ public class TransactionTests {
         val verificationCode = DataHelper.getVerificationCode(authInfo);
         verificationPage.validVerify(verificationCode);
         val dashboardPage = new DashboardPage();
+
+        val currentBalance2 = dashboardPage.getCurrentBalanceSecondCard();
+        val currentBalance1 = dashboardPage.getCurrentBalanceFirstCard();
+
         val expectedBalance = dashboardPage.getNewBalanceFirstCard(amount);
         dashboardPage.completeTransferToCard1();
         val transferPage = new TransferPage();
