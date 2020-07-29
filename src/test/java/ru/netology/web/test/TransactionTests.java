@@ -31,8 +31,7 @@ public class TransactionTests {
         val dashboardPage = new DashboardPage();
         val amount = 500;
         val expectedBalance = dashboardPage.getNewBalanceSecondCard(amount);
-        dashboardPage.completeTransferToCard2();
-        val transferPage = new TransferPage();
+        val transferPage = dashboardPage.completeTransferToCard2();
         val transferInfo = DataHelper.getTransferInfoFirstCard(String.valueOf(amount));
         transferPage.transferMoney(transferInfo);
         val newBalance = dashboardPage.getCurrentBalanceSecondCard();
@@ -46,8 +45,7 @@ public class TransactionTests {
         val amount = 500;
         val dashboardPage = new DashboardPage();
         val expectedBalance = dashboardPage.getNewBalanceFirstCard(amount);
-        dashboardPage.completeTransferToCard1();
-        val transferPage = new TransferPage();
+        val transferPage = dashboardPage.completeTransferToCard1();
         val transferInfo = DataHelper.getTransferInfoSecondCard(String.valueOf(amount));
         transferPage.transferMoney(transferInfo);
         val newBalance = dashboardPage.getCurrentBalanceFirstCard();
@@ -58,8 +56,7 @@ public class TransactionTests {
     @Order(3)
     void shouldNotTransferWhenAmountEmpty() {
         val dashboardPage = new DashboardPage();
-        dashboardPage.completeTransferToCard1();
-        val transferPage = new TransferPage();
+        val transferPage = dashboardPage.completeTransferToCard1();
         val transferInfo = new DataHelper.TransferInfo("", "5559000000000002");
         transferPage.transferError(transferInfo);
     }
@@ -68,8 +65,7 @@ public class TransactionTests {
     @Order(4)
     void shouldNotTransferWhenEmptyCardField() {
         val dashboardPage = new DashboardPage();
-        dashboardPage.completeTransferToCard1();
-        val transferPage = new TransferPage();
+        val transferPage = dashboardPage.completeTransferToCard1();
         val transferInfo = new DataHelper.TransferInfo("500", "");
         transferPage.transferError(transferInfo);
     }
@@ -78,8 +74,7 @@ public class TransactionTests {
     @Order(5)
     void shouldNotTransferWhenUnknownCard() {
         val dashboardPage = new DashboardPage();
-        dashboardPage.completeTransferToCard1();
-        val transferPage = new TransferPage();
+        val transferPage = dashboardPage.completeTransferToCard1();
         val transferInfo = new DataHelper.TransferInfo("500", "5559000000000005");
         transferPage.transferError(transferInfo);
     }
@@ -91,8 +86,7 @@ public class TransactionTests {
         val dashboardPage = new DashboardPage();
         val currentAmount = dashboardPage.getCurrentBalanceSecondCard();
         val amount = currentAmount + 1;
-        dashboardPage.completeTransferToCard1();
-        val transferPage = new TransferPage();
+        val transferPage = dashboardPage.completeTransferToCard1();
         val transferInfo = DataHelper.getTransferInfoSecondCard(String.valueOf(amount));
         transferPage.transferError(transferInfo);
     }
@@ -103,8 +97,7 @@ public class TransactionTests {
         val dashboardPage = new DashboardPage();
         val currentAmount = dashboardPage.getCurrentBalanceFirstCard();
         val amount = currentAmount + 1;
-        dashboardPage.completeTransferToCard2();
-        val transferPage = new TransferPage();
+        val transferPage = dashboardPage.completeTransferToCard2();
         val transferInfo = DataHelper.getTransferInfoFirstCard(String.valueOf(amount));
         transferPage.transferError(transferInfo);
     }
@@ -115,11 +108,24 @@ public class TransactionTests {
         val dashboardPage = new DashboardPage();
         val amount = dashboardPage.getCurrentBalanceSecondCard();
         val expectedBalance = dashboardPage.getNewBalanceFirstCard(amount);
-        dashboardPage.completeTransferToCard1();
-        val transferPage = new TransferPage();
+        val transferPage = dashboardPage.completeTransferToCard1();
         val transferInfo = DataHelper.getTransferInfoSecondCard(String.valueOf(amount));
         transferPage.transferMoney(transferInfo);
         val newBalance = dashboardPage.getCurrentBalanceFirstCard();
+        assertEquals(expectedBalance, newBalance);
+    }
+
+
+    @Test
+    @Order(9)
+    void shouldTransferAllMoneyFromFirstCardToSecond() {
+        val dashboardPage = new DashboardPage();
+        val amount = dashboardPage.getCurrentBalanceFirstCard();
+        val expectedBalance = dashboardPage.getNewBalanceSecondCard(amount);
+        val transferPage = dashboardPage.completeTransferToCard2();
+        val transferInfo = DataHelper.getTransferInfoSecondCard(String.valueOf(amount));
+        transferPage.transferMoney(transferInfo);
+        val newBalance = dashboardPage.getCurrentBalanceSecondCard();
         assertEquals(expectedBalance, newBalance);
     }
 
