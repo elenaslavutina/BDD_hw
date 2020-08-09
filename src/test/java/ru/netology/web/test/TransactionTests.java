@@ -170,7 +170,7 @@ public class TransactionTests {
         val expectedBalance2 = dashboardPage.getNewBalanceFirstCard(-amount);
 
         val transferPage = dashboardPage.completeTransferToCard2();
-        val transferInfo = DataHelper.getTransferInfoSecondCard(String.valueOf(amount));
+        val transferInfo = DataHelper.getTransferInfoFirstCard(String.valueOf(amount));
         transferPage.transferMoney(transferInfo);
         val newBalance1 = dashboardPage.getCurrentBalanceSecondCard();
         val newBalance2 = dashboardPage.getCurrentBalanceFirstCard();
